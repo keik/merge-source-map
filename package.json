@@ -1,0 +1,20 @@
+{
+  "name": "merge-source-map",
+  "version": "0.0.0",
+  "description": "Merge old source map and new source map in multi-transform flow",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/*.js"
+  },
+  "author": "keik <k4t0.kei@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "source-map": "^0.5.3"
+  },
+  "devDependencies": {
+    "convert-source-map": "^1.2.0",
+    "escodegen": "^1.8.0",
+    "esprima": "^2.7.2",
+    "tape": "^4.5.1"
+  }
+}
