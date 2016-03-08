@@ -4,7 +4,8 @@ var test               = require('tape'),
     sourceMap          = require('source-map'),
     SourceMapConsumer  = sourceMap.SourceMapConsumer,
     SourceMapGenerator = sourceMap.SourceMapGenerator,
-    convert            = require('convert-source-map')
+    convert            = require('convert-source-map'),
+    coffee             = require('coffee-script')
 
 var tr_doubleId        = require('./transforms/tr-double-id'),
     tr_doubleLine      = require('./transforms/tr-double-line')
@@ -20,7 +21,13 @@ var codes = {
     'console.log(2)',
     'b = 3',
     'console.log(4)'
+  ].join('\n'),
+
+  '3.coffee': [
+    'a = 1',
+    'console.log 2'
   ].join('\n')
+
 }
 
 test('single line-preserved-transform on 1.js', function(t) {
@@ -545,6 +552,88 @@ test('multi line-preserved and line-breaking transform on 2.js', function(t) {
     t.equal(origPos.line, 2)
     t.equal(origPos.column, 8)
     origPos = con.originalPositionFor({line: i, column: 12})
+    t.equal(origPos.line, 2)
+    t.equal(origPos.column, 12)
+  }
+
+  t.end()
+  // con.eachMapping(e => console.log(e))
+  // console.log(transformed);
+})
+
+test('multi line-preserved and line-breaking transform on 3.js', function(t) {
+  // setup
+  var f = '3.coffee'
+  var code = codes[f]
+
+  // exercise
+  // coffee + x1
+  var compiled = coffee.compile(code, { sourceMap: true, generatedFile: f, inline: true})
+  code = compiled.js + '\n' + convert.fromJSON(compiled.v3SourceMap).toComment()
+  var transformed = tr_doubleLine(code, f)
+  t.equal(convert.removeComments(transformed),
+          [
+            '(function () {',       //  1
+            '    var a;',           //  2
+            '    a = 1;',           //  3
+            '    a = 1;',           //  4
+            '    console.log(2);',  //  5
+            '    console.log(2);',  //  6
+            '}.call(this));',       //  7
+            '(function () {',       //  8
+            '    var a;',           //  9
+            '    a = 1;',           // 10
+            '    a = 1;',           // 11
+            '    console.log(2);',  // 12
+            '    console.log(2);',  // 13
+            '}.call(this));',       // 14
+            ''                      // 15
+          ].join('\n'))
+
+  // verify
+  var map = convert.fromSource(transformed).toJSON()
+  var con = new SourceMapConsumer(map)
+  var origPos
+  var i
+
+  for (i = 3; i <= 4; i++) {
+    origPos = con.originalPositionFor({line: i, column: 4})
+    t.equal(origPos.line, 1)
+    t.equal(origPos.column, 0)
+    origPos = con.originalPositionFor({line: i, column: 8})
+    t.equal(origPos.line, 1)
+    t.equal(origPos.column, 4)
+  }
+
+  for (i = 5; i <= 6; i++) {
+    origPos = con.originalPositionFor({line: i, column: 4})
+    t.equal(origPos.line, 2)
+    t.equal(origPos.column, 0)
+    origPos = con.originalPositionFor({line: i, column: 12})
+    t.equal(origPos.line, 2)
+    t.equal(origPos.column, 8)
+    origPos = con.originalPositionFor({line: i, column: 16})
+    t.equal(origPos.line, 2)
+    t.equal(origPos.column, 12)
+  }
+
+  for (i = 10; i <= 11; i++) {
+    origPos = con.originalPositionFor({line: i, column: 4})
+    t.equal(origPos.line, 1)
+    t.equal(origPos.column, 0)
+    origPos = con.originalPositionFor({line: i, column: 8})
+    t.equal(origPos.line, 1)
+    t.equal(origPos.column, 4)
+  }
+
+  for (i = 12; i <= 13; i++) {
+    origPos = con.originalPositionFor({line: i, column: 4})
+    t.equal(origPos.line, 2)
+    t.equal(origPos.column, 0)
+    origPos = con.originalPositionFor({line: i, column: 12})
+    t.equal(origPos.line, 2)
+    t.equal(origPos.column, 8)
+    origPos = con.originalPositionFor({line: i, column: 16})
     t.equal(origPos.line, 2)
     t.equal(origPos.column, 12)
   }
