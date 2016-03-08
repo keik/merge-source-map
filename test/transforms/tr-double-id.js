@@ -5,7 +5,7 @@ var fs         = require('fs'),
     convert    = require('convert-source-map'),
     SM         = require('source-map')
 
-var mergeSourceMap = require('../../')
+var merge = require('../../')
 
 module.exports = function(code, filepath) {
   var ast = esprima.parse(code, {sourceType: 'module', range: true, comment: true, tokens: true, loc: true})
@@ -24,8 +24,8 @@ module.exports = function(code, filepath) {
     sourceContent: code
   })
 
-  var origMap = convert.fromSource(code) && convert.fromSource(code).toObject(),
-      mergedMap = origMap ? mergeSourceMap(origMap, JSON.parse(gen.map.toString())) : JSON.parse(gen.map.toString()),
+  var oldMap = convert.fromSource(code) && convert.fromSource(code).toObject(),
+      mergedMap = merge(oldMap, JSON.parse(gen.map.toString())),
       mapComment = convert.fromObject(mergedMap).toComment()
 
   return gen.code + '\n' + mapComment
