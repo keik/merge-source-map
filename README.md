@@ -2,6 +2,10 @@
 
 Merge old source map and new source map in multi-transform flow
 
+[![travis-ci](https://travis-ci.org/keik/merge-source-map.svg?branch=master)](https://travis-ci.org/keik/merge-source-map)
+
+[![npm](https://nodei.co/npm/merge-source-map.png)](https://npmjs.org/package/merge-source-map)
+
 
 # API
 
