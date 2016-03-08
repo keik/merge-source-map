@@ -10,21 +10,21 @@ var merge = require('merge-source-map')
 ```
 
 
-## merge(oldMap, newMap)
+## `merge(oldMap, newMap)`
 
 Merge old source map and new source map and return merged.
 If old or new source map value is falsy, return another one as it is.
 
 <dl>
   <dt>
-    oldMap : `object|undefined`
+    <code>oldMap</code> : <code>object|undefined</code>
   </dt>
   <dd>
     old source map object
   </dd>
 
   <dt>
-    newmap : `object|undefined`
+    <code>newmap</code> : <code>object|undefined</code>
   </dt>
   <dd>
     new source map object
