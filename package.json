@@ -6,8 +6,15 @@
   "scripts": {
     "test": "tape test/*.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keik/merge-source-map.git"
+  },
   "author": "keik <k4t0.kei@gmail.com>",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/keik/merge-source-map/issues"
+  },
   "keywords": [
     "sourcemap",
     "source-map"
@@ -22,5 +29,10 @@
     "esprima": "^2.7.2",
     "estraverse": "^4.1.1",
     "tape": "^4.5.1"
-  }
+  },
+  "files": [
+    "README.md",
+    "index.js",
+    "package.json"
+  ]
 }
