@@ -1,10 +1,9 @@
 # merge-source-map
 
+[![travis-ci](https://img.shields.io/travis/keik/merge-source-map.svg?style=flat-square)](https://travis-ci.org/keik/merge-source-map)
+[![npm-version](https://img.shields.io/npm/v/merge-source-map.svg?style=flat-square)](https://npmjs.org/package/merge-source-map)
+
 Merge old source map and new source map in multi-transform flow
-
-[![travis-ci](https://travis-ci.org/keik/merge-source-map.svg?branch=master)](https://travis-ci.org/keik/merge-source-map)
-
-[![npm](https://nodei.co/npm/merge-source-map.png)](https://npmjs.org/package/merge-source-map)
 
 
 # API
