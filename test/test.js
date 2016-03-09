@@ -1,9 +1,6 @@
 var test               = require('tape'),
-    fs                 = require('fs'),
-    path               = require('path'),
     sourceMap          = require('source-map'),
     SourceMapConsumer  = sourceMap.SourceMapConsumer,
-    SourceMapGenerator = sourceMap.SourceMapGenerator,
     convert            = require('convert-source-map'),
     coffee             = require('coffee-script')
 

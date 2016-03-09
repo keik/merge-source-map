@@ -1,9 +1,7 @@
-var fs         = require('fs'),
-    esprima    = require('esprima'),
+var esprima    = require('esprima'),
     estraverse = require('estraverse'),
     escodegen  = require('escodegen'),
-    convert    = require('convert-source-map'),
-    SM         = require('source-map')
+    convert    = require('convert-source-map')
 
 var merge = require('../../')
 
