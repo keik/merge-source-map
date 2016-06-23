@@ -33,9 +33,5 @@
     "estraverse": "^4.1.1",
     "tape": "^4.5.1"
   },
-  "files": [
-    "README.md",
-    "index.js",
-    "package.json"
-  ]
+  "files": []
 }
