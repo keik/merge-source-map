@@ -23,16 +23,16 @@ function merge(oldMap, newMap) {
       newMapConsumer = new SourceMapConsumer(newMap),
       mergedMapGenerator = new SourceMapGenerator()
 
-  // iterate on new map
+  // iterate on new map and overwrite original position of new map with one of old map
   newMapConsumer.eachMapping(function(m) {
-    // overwrite original position of new map with
-    //           original position of old map
-    var origPosInOldMap
-    if (m.originalLine != null) {
-      origPosInOldMap = oldMapConsumer.originalPositionFor({line: m.originalLine, column: m.originalColumn})
-    }
 
-    if (!origPosInOldMap || !origPosInOldMap.source)
+    // pass when `originalLine` is null.
+    // It occurs in case that the node does not have origin in original code.
+    if (m.originalLine == null)
+      return
+
+    var origPosInOldMap = oldMapConsumer.originalPositionFor({line: m.originalLine, column: m.originalColumn})
+    if (origPosInOldMap.source == null)
       return
 
     mergedMapGenerator.addMapping({
