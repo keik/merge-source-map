@@ -27,9 +27,12 @@ function merge(oldMap, newMap) {
   newMapConsumer.eachMapping(function(m) {
     // overwrite original position of new map with
     //           original position of old map
-    var origPosInOldMap = oldMapConsumer.originalPositionFor({line: m.originalLine, column: m.originalColumn})
+    var origPosInOldMap
+    if (m.originalLine != null) {
+      origPosInOldMap = oldMapConsumer.originalPositionFor({line: m.originalLine, column: m.originalColumn})
+    }
 
-    if (!origPosInOldMap.source)
+    if (!origPosInOldMap || !origPosInOldMap.source)
       return
 
     mergedMapGenerator.addMapping({
