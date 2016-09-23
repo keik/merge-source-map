@@ -47,12 +47,12 @@ test('handle original position of code that does not have an origin (with compac
   var code = 'a = b'
 
   // transform to insert empty statement
-  var tmp_transformed = insertEmptyStatementTransform(code, f, {compact: true})
+  var tmp_transformed = insertEmptyStatementTransform(code, f, true)
   t.equal(convert.removeComments(tmp_transformed), ['a=b;;',
                                                     ''].join('\n'))
 
   // transform to insert empty statement (x2)
-  var transformed = insertEmptyStatementTransform(tmp_transformed, f, {compact: true})
+  var transformed = insertEmptyStatementTransform(tmp_transformed, f, true)
   t.equal(convert.removeComments(transformed), ['a=b;;;',
                                                 ''].join('\n'))
 
@@ -73,11 +73,7 @@ test('handle original position of code that does not have an origin (with compac
   // console.log(transformed)
  })
 
-function insertEmptyStatementTransform(code, filepath, opts) {
-
-  opts = Object.assign({
-    compact: false
-  }, opts || {})
+function insertEmptyStatementTransform(code, filepath, compact) {
 
   var emptyStatement = esprima.parse(';').body[0]
   var ast = esprima.parse(code, {sourceType: 'module', loc: true})
@@ -95,7 +91,7 @@ function insertEmptyStatementTransform(code, filepath, opts) {
     sourceMapWithCode: true,
     sourceContent: code,
     format: {
-      compact: opts.compact
+      compact: compact
     }
   })
 

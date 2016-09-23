@@ -4,14 +4,14 @@ var test = require('tape'),
 
 var merge = require('../')
 
-test('undefined args should not effect results', t => {
+test('undefined args should not effect results', function(t) {
 
-  var code = `(() => {
-    console.log(new Error().stack);
-
-    foo.bar = 1;
-})();
-`
+  var code = ['(() => {',
+              '    console.log(new Error().stack);',
+              '',
+              '    foo.bar = 1;',
+              '})();',
+              ''].join('\n')
 
   var transformed = babel.transform(code, {presets: ['es2015'],
                                            sourceMaps: 'inline',
