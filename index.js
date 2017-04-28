@@ -44,8 +44,8 @@ function merge(oldMap, newMap) {
         line: m.generatedLine,
         column: m.generatedColumn
       },
-      source: m.source,
-      name: m.name
+      source: origPosInOldMap.source,
+      name: origPosInOldMap.name
     })
   })
 
