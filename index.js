@@ -50,8 +50,11 @@ function merge(oldMap, newMap) {
   })
 
   var mergedMap = JSON.parse(mergedMapGenerator.toString())
-  mergedMap.sources = oldMap.sources
-  mergedMap.sourcesContent = oldMap.sourcesContent
+
+  mergedMap.sourcesContent = mergedMap.sources.map(function (source) {
+    return oldMapConsumer.sourceContentFor(source)
+  })
+
   mergedMap.sourceRoot = oldMap.sourceRoot
 
   return mergedMap
