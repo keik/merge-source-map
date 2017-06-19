@@ -2,12 +2,13 @@ const esprima    = require('esprima')
 const estraverse = require('estraverse')
 const escodegen  = require('escodegen')
 
-module.exports = function(code, filepath) {
+module.exports = function insertEmptyStatementTransform(code, filepath, compact) {
+  const emptyStatement = esprima.parse(';').body[0]
   const ast = esprima.parse(code, {sourceType: 'module', loc: true})
   estraverse.replace(ast, {
     enter: function(node, parent) {
       if (node.type === 'ExpressionStatement') {
-        parent.body.splice(parent.body.indexOf(node), 0, node)
+        parent.body.push(emptyStatement)
       }
     },
     leave: function() {}
@@ -16,6 +17,7 @@ module.exports = function(code, filepath) {
   return escodegen.generate(ast, {
     sourceMap: filepath,
     sourceMapWithCode: true,
-    sourceContent: code
+    sourceContent: code,
+    format: {compact: compact}
   })
 }

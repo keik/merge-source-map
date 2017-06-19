@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "expected.js",
+  "sourceRoot": "../../..",
+  "sources": [
+    "test/fixtures/coffee-script/expected.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,MAAA;;EAAA,CAAA,GAAI;;EACJ,CAAA,GAAI,SAAC,IAAD,EAAO,IAAP;IACF,OAAO,CAAC,GAAR,CAAY,IAAZ;IAEA,OAAO,CAAC,GAAR,CAAY,IAAZ;EAHE;AADJ"
+}

@@ -1,6 +1,6 @@
-var sourceMap = require('source-map'),
-    SourceMapConsumer = sourceMap.SourceMapConsumer,
-    SourceMapGenerator = sourceMap.SourceMapGenerator
+var sourceMap = require('source-map')
+var SourceMapConsumer = sourceMap.SourceMapConsumer
+var SourceMapGenerator = sourceMap.SourceMapGenerator
 
 module.exports = merge
 
@@ -8,8 +8,8 @@ module.exports = merge
  * Merge old source map and new source map and return merged.
  * If old or new source map value is falsy, return another one as it is.
  *
- * @param {object|undefined} oldMap old source map object
- * @param {object|undefined} newmap new source map object
+ * @param {object|string} [oldMap] old source map object
+ * @param {object|string} [newmap] new source map object
  * @return {object|undefined} merged source map object, or undefined when both old and new source map are undefined
  */
 function merge(oldMap, newMap) {
@@ -19,9 +19,9 @@ function merge(oldMap, newMap) {
   if (!newMap)
     return oldMap
 
-  var oldMapConsumer = new SourceMapConsumer(oldMap),
-      newMapConsumer = new SourceMapConsumer(newMap),
-      mergedMapGenerator = new SourceMapGenerator()
+  var oldMapConsumer = new SourceMapConsumer(oldMap)
+  var newMapConsumer = new SourceMapConsumer(newMap)
+  var mergedMapGenerator = new SourceMapGenerator()
 
   // iterate on new map and overwrite original position of new map with one of old map
   newMapConsumer.eachMapping(function(m) {
