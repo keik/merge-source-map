@@ -44,14 +44,17 @@ function merge(oldMap, newMap) {
         line: m.generatedLine,
         column: m.generatedColumn
       },
-      source: m.source,
-      name: m.name
+      source: origPosInOldMap.source,
+      name: origPosInOldMap.name
     })
   })
 
   var mergedMap = JSON.parse(mergedMapGenerator.toString())
-  mergedMap.sources = oldMap.sources
-  mergedMap.sourcesContent = oldMap.sourcesContent
+
+  mergedMap.sourcesContent = mergedMap.sources.map(function (source) {
+    return oldMapConsumer.sourceContentFor(source)
+  })
+
   mergedMap.sourceRoot = oldMap.sourceRoot
 
   return mergedMap
