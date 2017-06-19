@@ -48,7 +48,7 @@ test('multi transform with CoffeeScript and doubleLineTransform', function(t) {
   t.equal(doubleLineTransformed.code, fs.readFileSync(resolve(__dirname, './fixtures/coffee-script/actual.js'), 'utf-8'))
 
   const con = new SourceMapConsumer(mergedMap)
-  for (let i = 0; i < 2; i++) {
+  for (var i = 0; i < 2; i++) {
     const offset = i * 17
     t.deepEqual(
       con.originalPositionFor({ line: 2 + offset, column: 8 }),
@@ -124,7 +124,7 @@ test('multi transform with CoffeeScript and doubleLineTransform', function(t) {
   t.end()
 })
 
-test('multi transform with es2015-arrow and es2015-spread on babel', (t) => {
+test('multi transform with es2015-arrow and es2015-spread on babel', function(t) {
 
   // source.js -> resultOfArrow.js
   const resultOfArrow = babel.transform(fs.readFileSync(resolve(__dirname, './fixtures/es2015/expected.js')), {
@@ -177,11 +177,11 @@ test('multi transform with es2015-arrow and es2015-spread on babel', (t) => {
 
   // mappings by merge-soource-source-map, filtered by having `name` property
   const mergedMappings = []
-  mergedMapConsumer.eachMapping(m => m.name && mergedMappings.push(m))
+  mergedMapConsumer.eachMapping(function(m) { m.name && mergedMappings.push(m) })
 
   // mappings by babel, filtered by having `name` property
   const sameTimeMappings = []
-  sameTimeMapConsumer.eachMapping(m => m.name && sameTimeMappings.push(m))
+  sameTimeMapConsumer.eachMapping(function(m) { m.name && sameTimeMappings.push(m) })
 
   t.deepEqual(mergedMappings, sameTimeMappings)
   t.end()
@@ -201,7 +201,7 @@ test('handle original position of code that does not have an origin', function(t
   // verify
   const mergedMap = merge(transformed1.map.toJSON(), transformed2.map.toJSON())
   const con = new SourceMapConsumer(mergedMap)
-  let origPos
+  var origPos
 
   // pos for variable `a`
   origPos = con.originalPositionFor({line: 1, column: 0})
@@ -227,7 +227,7 @@ test('handle original position of code that does not have an origin (with compac
 
   const mergedMap = merge(transformed1.map.toJSON(), transformed2.map.toJSON())
   const con = new SourceMapConsumer(mergedMap)
-  let origPos
+  var origPos
 
   // pos for variable `a`
   origPos = con.originalPositionFor({line: 1, column: 0})
