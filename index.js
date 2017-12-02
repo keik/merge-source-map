@@ -47,13 +47,18 @@ function merge(oldMap, newMap) {
     })
   })
 
-  var mergedMap = JSON.parse(mergedMapGenerator.toString())
-
-  mergedMap.sourcesContent = mergedMap.sources.map(function(source) {
-    return oldMapConsumer.sourceContentFor(source)
+  var consumers = [oldMapConsumer, newMapConsumer]
+  consumers.forEach(function(consumer) {
+    consumer.sources.forEach(function(sourceFile) {
+      mergedMapGenerator._sources.add(sourceFile)
+      var sourceContent = consumer.sourceContentFor(sourceFile)
+      if (sourceContent != null) {
+        mergedMapGenerator.setSourceContent(sourceFile, sourceContent)
+      }
+    })
   })
 
-  mergedMap.sourceRoot = oldMap.sourceRoot
+  mergedMapGenerator._sourceRoot = oldMap.sourceRoot
 
-  return mergedMap
+  return JSON.parse(mergedMapGenerator.toString())
 }
