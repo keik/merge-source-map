@@ -59,6 +59,7 @@ function merge(oldMap, newMap) {
   })
 
   mergedMapGenerator._sourceRoot = oldMap.sourceRoot
+  mergedMapGenerator._file = oldMap.file
 
   return JSON.parse(mergedMapGenerator.toString())
 }
