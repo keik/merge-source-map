@@ -22,7 +22,7 @@
     "source-map"
   ],
   "dependencies": {
-    "source-map": "^0.5.6"
+    "source-map": "^0.6.1"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
