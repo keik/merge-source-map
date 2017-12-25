@@ -1,6 +1,6 @@
 {
   "name": "merge-source-map",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Merge old source map and new source map in multi-transform flow",
   "main": "index.js",
   "scripts": {
